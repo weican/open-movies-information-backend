@@ -20,13 +20,6 @@ import java.util.*;
 @Service
 public class MovieService {
 
-    @Value("${spring.datasource.url}")
-    private String dbURL;
-    @Value("${spring.datasource.username}")
-    private String dbUserName;
-    @Value("${spring.datasource.password}")
-    private String dbPassword;
-
     @Value("${tmdb}")
     private String tmdbUrl;
     @Value("${ver}")
@@ -153,9 +146,6 @@ public class MovieService {
     }
 
     public HashMap<Integer, List<Genre>>  getGenreList() {
-        System.out.println(tmdbUrl);
-        System.out.println(dbUserName);
-        System.out.println(dbPassword);
         List<GenreDetail>  genreList = genreMapper.getGenreList();
         HashMap<Integer, List<Genre>> genreMap = new HashMap<>();
         List<Genre> tempGenreList;
