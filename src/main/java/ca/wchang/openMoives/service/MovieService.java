@@ -20,6 +20,13 @@ import java.util.*;
 @Service
 public class MovieService {
 
+    @Value("${spring.datasource.url}")
+    private String dbURL;
+    @Value("${spring.datasource.username}")
+    private String dbUserName;
+    @Value("${spring.datasource.password}")
+    private String dbPassword;
+
     @Value("${tmdb}")
     private String tmdbUrl;
     @Value("${ver}")
@@ -50,8 +57,6 @@ public class MovieService {
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
         entity = new HttpEntity<String>("parameters", headers);
     }
-
-
 
     public Movie_info getList(String title)
     {
@@ -148,6 +153,9 @@ public class MovieService {
     }
 
     public HashMap<Integer, List<Genre>>  getGenreList() {
+        System.out.println(tmdbUrl);
+        System.out.println(dbUserName);
+        System.out.println(dbPassword);
         List<GenreDetail>  genreList = genreMapper.getGenreList();
         HashMap<Integer, List<Genre>> genreMap = new HashMap<>();
         List<Genre> tempGenreList;
