@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class MovieController {
+public class MovieAPIController {
 
     @Autowired
     private MovieService movieService;
@@ -42,7 +42,7 @@ public class MovieController {
     public ResponseEntity<?> getAll()  {
         ArrayList<Movie_info> list = movieService.getAll();
         if(list == null)
-            throw new MovieException("Movies data are not found.");
+            throw new MovieException("The movies data are not found.");
         return new ResponseEntity<ArrayList<Movie_info>>(list, HttpStatus.OK);
 
     }
