@@ -1,5 +1,7 @@
 package ca.wchang.openMoives.controller;
 
+import ca.wchang.openMoives.exception.MovieException;
+import ca.wchang.openMoives.model.Genre;
 import ca.wchang.openMoives.model.Movie_info;
 import ca.wchang.openMoives.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,65 +10,60 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
-public class movieController {
+public class MovieController {
 
     @Autowired
     private MovieService movieService;
 
-
     @GetMapping("/")
-    public String greeting() {
-        return "Welcome to open movies information service.";
+    public Map<String, String> greeting() {
+        return new HashMap<String, String>() {{
+            put("Message", "Welcome to open movies information service.");
+        }};
     }
-
 
     @GetMapping("getMovies")
     public ResponseEntity<?> getMovies(@RequestParam String title) {
-        try {
-            Movie_info movie = movieService.getList(title);
-            if(movie == null) return new ResponseEntity<String>( "Not found", HttpStatus.OK);
-            return new ResponseEntity<Movie_info>( movie, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<String>( "Not found", HttpStatus.OK);
-        }
+
+        Movie_info movie = movieService.getList(title);
+        if(movie == null)
+            throw new MovieException("The movie is not found.");
+        return new ResponseEntity<Movie_info>( movie, HttpStatus.OK);
+
     }
 
     @CrossOrigin
     @GetMapping("getAll")
     public ResponseEntity<?> getAll()  {
-        try {
-            ArrayList<Movie_info> list = movieService.getAll();
-            if(list == null) return new ResponseEntity<String>( "Not found", HttpStatus.OK);
-            return new ResponseEntity<ArrayList<Movie_info>>(list, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<String>( "Not found", HttpStatus.OK);
-        }
+        ArrayList<Movie_info> list = movieService.getAll();
+        if(list == null)
+            throw new MovieException("Movies data are not found.");
+        return new ResponseEntity<ArrayList<Movie_info>>(list, HttpStatus.OK);
+
     }
 
     @GetMapping("updateMovies")
-    public ResponseEntity<?> updateMovies(@RequestParam Integer year) {
-        try {
-            return new ResponseEntity<String>( movieService.updateDBfromServer(year), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<String>( "Error", HttpStatus.OK);
-        }
-
+    public Map<String, String> updateMovies(@RequestParam Integer year) {
+        String message = movieService.updateDBfromServer(year);
+        if(message == null)
+            throw new MovieException("Updating Database is failed.");
+        return new HashMap<String, String>() {{
+            put("Message", message);
+        }};
     }
 
     @CrossOrigin
     @GetMapping("getGenre")
     public ResponseEntity<?> getGenre() {
-        try {
-            return new ResponseEntity<>( movieService.getGenreList(), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<String>( "Error", HttpStatus.OK);
-        }
+        HashMap<Integer, List<Genre>> list = movieService.getGenreList();
+        if (list == null)
+            throw new MovieException("Genre data are not found.");
+        return new ResponseEntity<>( list, HttpStatus.OK);
     }
 
 }
