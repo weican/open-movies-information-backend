@@ -2,6 +2,7 @@ package ca.wchang.openMoives.service;
 
 import ca.wchang.openMoives.dao.GenreMapper;
 import ca.wchang.openMoives.dao.Movie_infoMapper;
+import ca.wchang.openMoives.exception.MovieException;
 import ca.wchang.openMoives.model.Genre;
 import ca.wchang.openMoives.model.GenreDetail;
 import ca.wchang.openMoives.model.Movie_info;
@@ -137,36 +138,39 @@ public class MovieService {
             ArrayList<Integer> movieIdList = movie_infoMapper.getAllMovieIdList();
             movieIdList.parallelStream().forEach(id -> updateBudgetAndRevenueFrmServer(id));
 
-            return "Updated movies in total: " + movieIdList.size();
+            return "Updated movies in total " + movieIdList.size();
         }
         catch (Exception e) {
             e.printStackTrace();
-            return "Error";
+            return null;
         }
     }
 
     public HashMap<Integer, List<Genre>>  getGenreList() {
-        List<GenreDetail>  genreList = genreMapper.getGenreList();
-        HashMap<Integer, List<Genre>> genreMap = new HashMap<>();
-        List<Genre> tempGenreList;
+        try {
+            List<GenreDetail> genreList = genreMapper.getGenreList();
+            HashMap<Integer, List<Genre>> genreMap = new HashMap<>();
+            List<Genre> tempGenreList;
 
-        for(GenreDetail genreDetail : genreList) {
-            Genre genre = new Genre();
-            genre.setCategory_name(genreDetail.getCategory_name());
-            genre.setGenre_id(genreDetail.getCategory_id());
+            for (GenreDetail genreDetail : genreList) {
+                Genre genre = new Genre();
+                genre.setCategory_name(genreDetail.getCategory_name());
+                genre.setGenre_id(genreDetail.getCategory_id());
 
-           if(genreMap.containsKey(genreDetail.getMovie_id())) {
-               tempGenreList = genreMap.get(genreDetail.getMovie_id());
-               tempGenreList.add(genre);
-               genreMap.replace(genreDetail.getMovie_id(), tempGenreList);
-           }
-           else {
-               tempGenreList = new ArrayList<>();
-               tempGenreList.add(genre);
-               genreMap.put(genreDetail.getMovie_id(), tempGenreList);
-           }
+                if (genreMap.containsKey(genreDetail.getMovie_id())) {
+                    tempGenreList = genreMap.get(genreDetail.getMovie_id());
+                    tempGenreList.add(genre);
+                    genreMap.replace(genreDetail.getMovie_id(), tempGenreList);
+                } else {
+                    tempGenreList = new ArrayList<>();
+                    tempGenreList.add(genre);
+                    genreMap.put(genreDetail.getMovie_id(), tempGenreList);
+                }
+            }
+            return genreMap;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        return genreMap;
-
     }
 }
