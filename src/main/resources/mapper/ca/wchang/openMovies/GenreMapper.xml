@@ -15,10 +15,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ca.wchang.openMoives.dao.GenreMapper">
-    <!--<resultMap id="userResultMap" type="Movie_info">-->
-    <!--<id property="id" column="id" />-->
-    <!--<result property="title" column="title" />-->
-    <!--</resultMap>-->
 
     <select id="getByGenre_id" parameterType="Integer" resultType="Genre">
         select
