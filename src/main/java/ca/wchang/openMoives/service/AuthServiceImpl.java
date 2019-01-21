@@ -66,8 +66,6 @@ public class AuthServiceImpl implements AuthService {
     public String login(String username, String password) {
         try {
             UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(username, password);
-            System.out.println(upToken + "," +username +"," + password);
-
             final Authentication authentication = authenticationManager.authenticate(upToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
 

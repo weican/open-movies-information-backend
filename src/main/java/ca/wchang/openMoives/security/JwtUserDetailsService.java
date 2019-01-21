@@ -1,5 +1,6 @@
 package ca.wchang.openMoives.security;
 
+import ca.wchang.openMoives.dao.AuthorityMapper;
 import ca.wchang.openMoives.dao.UserMapper;
 import ca.wchang.openMoives.model.Authority;
 import ca.wchang.openMoives.model.AuthorityName;
@@ -19,17 +20,22 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private AuthorityMapper authorityMapper;
+
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         User user = userMapper.findByUserName(userName);
-        Authority auth = new Authority();
-        auth.setId(2L);
-        auth.setName(AuthorityName.ROLE_ADMIN);
-//        auth.setUsers(2);
+        ArrayList<Integer> authList = authorityMapper.findAuthorityById(user.getId().intValue());
+        AuthorityName[] authorityName = AuthorityName.values();
         List<Authority> list = new ArrayList<>();
-        list.add(auth);
+        for(Integer i = 0; i < authList.size(); i++) {
+            Authority auth = new Authority();
+            auth.setId(Long.valueOf(authList.get(i)));
+            auth.setName(authorityName[authList.get(i)-1]);
+            list.add(auth);
+        }
         user.setAuthorities(list);
-        System.err.println( user.toString());
         if(user == null) {
             throw new  UsernameNotFoundException("No user found with user name" + userName);
         } else {
