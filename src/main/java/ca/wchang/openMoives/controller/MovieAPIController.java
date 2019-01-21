@@ -20,6 +20,25 @@ public class MovieAPIController {
     @Autowired
     private MovieService movieService;
 
+    @CrossOrigin
+    @GetMapping("public/getGenre")
+    public ResponseEntity<?> getGenre() {
+        HashMap<Integer, List<Genre>> list = movieService.getGenreList();
+        if (list == null)
+            throw new MovieException("Genre data are not found.");
+        return new ResponseEntity<>( list, HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @GetMapping("public/getAll")
+    public ResponseEntity<?> getAll()  {
+        ArrayList<Movie_info> list = movieService.getAll();
+        if(list == null)
+            throw new MovieException("The movies data are not found.");
+        return new ResponseEntity<ArrayList<Movie_info>>(list, HttpStatus.OK);
+
+    }
+
     @GetMapping("/")
     public Map<String, String> greeting() {
         return new HashMap<String, String>() {{
@@ -37,16 +56,6 @@ public class MovieAPIController {
 
     }
 
-    @CrossOrigin
-    @GetMapping("getAll")
-    public ResponseEntity<?> getAll()  {
-        ArrayList<Movie_info> list = movieService.getAll();
-        if(list == null)
-            throw new MovieException("The movies data are not found.");
-        return new ResponseEntity<ArrayList<Movie_info>>(list, HttpStatus.OK);
-
-    }
-
     @GetMapping("updateMovies")
     public Map<String, String> updateMovies(@RequestParam Integer year) {
         String message = movieService.updateDBfromServer(year);
@@ -57,13 +66,6 @@ public class MovieAPIController {
         }};
     }
 
-    @CrossOrigin
-    @GetMapping("getGenre")
-    public ResponseEntity<?> getGenre() {
-        HashMap<Integer, List<Genre>> list = movieService.getGenreList();
-        if (list == null)
-            throw new MovieException("Genre data are not found.");
-        return new ResponseEntity<>( list, HttpStatus.OK);
-    }
+
 
 }
