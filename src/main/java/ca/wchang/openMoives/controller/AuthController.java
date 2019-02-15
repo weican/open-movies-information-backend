@@ -7,6 +7,8 @@ import ca.wchang.openMoives.security.JwtAuthenticationRequest;
 import ca.wchang.openMoives.security.JwtAuthenticationResponse;
 import ca.wchang.openMoives.security.JwtTokenUtil;
 import ca.wchang.openMoives.service.AuthService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -42,21 +45,13 @@ public class AuthController {
 //    @Qualifier("JwtUserDetailsService")
     private UserDetailsService userDetailsService;
 
-//    @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
-//    @PostMapping("auth")
-//    public ResponseEntity<?> createAuthenticationToken(
-//            @RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException {
-//        final String token = authService.login(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-//
-//        // Return the tokenauthController
-//        return ResponseEntity.ok(new JwtAuthenticationResponse(token));
-//    }
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest)
             throws AuthenticationException {
 
-        System.out.println(authenticationRequest.getUsername());
+        logger.info(authenticationRequest.getUsername());
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
         // Reload password post-security so we can generate the token
@@ -67,19 +62,22 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(token));
     }
 
-//    @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
-//    public ResponseEntity<?> refreshAndGetAuthenticationToken(
-//            HttpServletRequest request) throws AuthenticationException{
-//        String token = request.getHeader(tokenHeader);
-//        String refreshedToken = authService.refresh(token);
-//        if(refreshedToken == null) {
-//            return ResponseEntity.badRequest().body(null);
-//        } else {
-//            return ResponseEntity.ok(new JwtAuthenticationResponse(refreshedToken));
-//        }
-//    }
+    @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)
+    public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
+        String authToken = request.getHeader(tokenHeader);
+        final String token = authToken.substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
 
-    @PostMapping("/auth/register")
+        if (jwtTokenUtil.canTokenBeRefreshed(token, user.getLastPasswordResetDate())) {
+            String refreshedToken = jwtTokenUtil.refreshToken(token);
+            return ResponseEntity.ok(new JwtAuthenticationResponse(refreshedToken));
+        } else {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PostMapping("${jwt.route.authentication.signup}")
     public HashMap<String, String> register(@RequestBody User addedUser) {
         if(authService.register(addedUser) != null)
             return new HashMap<String,String>() {{put("Message", "Success" );}};
