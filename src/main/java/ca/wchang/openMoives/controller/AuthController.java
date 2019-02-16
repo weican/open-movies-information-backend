@@ -51,7 +51,7 @@ public class AuthController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest)
             throws AuthenticationException {
 
-        logger.info(authenticationRequest.getUsername());
+        logger.info("login user: "  + authenticationRequest.getUsername());
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
         // Reload password post-security so we can generate the token
