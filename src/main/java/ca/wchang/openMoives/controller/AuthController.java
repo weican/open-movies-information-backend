@@ -42,7 +42,7 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-//    @Qualifier("JwtUserDetailsService")
+    @Qualifier("jwtUserDetailsService")
     private UserDetailsService userDetailsService;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

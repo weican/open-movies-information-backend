@@ -3,6 +3,7 @@ package ca.wchang.openMoives.controller;
 import ca.wchang.openMoives.exception.MovieException;
 import ca.wchang.openMoives.model.Genre;
 import ca.wchang.openMoives.model.Movie_info;
+import ca.wchang.openMoives.service.MovieService;
 import ca.wchang.openMoives.service.MovieServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ import java.util.Map;
 public class MovieAPIController {
 
     @Autowired
-    private MovieServiceImpl movieServiceImpl;
+    private MovieService movieServiceImpl;
 
     @CrossOrigin
     @GetMapping("public/getGenre")
