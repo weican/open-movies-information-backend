@@ -14,7 +14,7 @@ The website is temporarily deployed on Heroku.
 # Features
 - Displaying movies information and interactive visualization on charts
 - Automatic copying data and extracting from TMDb server into the host database by RESTful API
-- Using JSON Web Token(JWT) with Spring Security for the authorized users to update at the latest of movies information
+- Using JSON Web Token(JWT) with Spring Security for the authorized users to update the latest movies information
 - Providing RESTful API for endpoints 
 
 # Declaration and Licence
