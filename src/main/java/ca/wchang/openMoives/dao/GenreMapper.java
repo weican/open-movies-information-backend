@@ -8,10 +8,10 @@ import java.util.ArrayList;
 
 @Mapper
 public interface GenreMapper {
-    public ArrayList<GenreMapper> getByGenre_id(Integer id);
-    public void insert(Genre genre);
-    public void deleteByGenreId(Integer id);
-    public ArrayList<GenreMapper> getAll();
-    public void deleteAll();
-    public ArrayList<GenreDetail> getGenreList();
+    ArrayList<GenreMapper> getByGenre_id(Integer id);
+    void insert(Genre genre);
+    void deleteByGenreId(Integer id);
+    ArrayList<GenreMapper> getAll();
+    void deleteAll();
+    ArrayList<GenreDetail> getGenreList();
 }
