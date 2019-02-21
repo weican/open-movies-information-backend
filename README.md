@@ -9,3 +9,15 @@ The website is temporarily deployed on Heroku.
 - [Spring Security](https://spring.io/projects/spring-security) is a powerful and highly customizable authentication and access-control framework.
 - [Mybatis](http://www.mybatis.org/mybatis-3/index.html) is a first class persistence framework with support for custom SQL, stored procedures and advanced mappings. 
 - [MySQL](https://www.mysql.com/) (Database)
+- [JWT](https://jwt.io/) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. 
+
+# Features
+- Displaying movies information and interactive visualization on charts
+- Automatic copying data and extracting from TMDb server into the host database by RESTful API
+- Using JSON Web Token(JWT) with Spring Security for the authorized users to update at the latest of movies information
+- Providing RESTful API for endpoints 
+
+# Declaration and Licence
+This project is maintained by Wales Chang and under MIT license, and the repository is hosted for the demonstration purpose. 
+
+🚨 Please use it in your own risks. The author is not responsible or obligated to any damage or lost if you decide to use any part of code hosted from this repository.
