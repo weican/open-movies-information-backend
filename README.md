@@ -1,6 +1,6 @@
 # Summary
 The Project Open Movies Information is a self-motivated project as a demonstration of my back-end skills.
-This A-to-Z project is developed independently from scratch (very limited with the use of libraries) as well as it will be cpntantlly improving. 
+This A-to-Z project is developed independently from scratch as well as it will be constantly improving. 
 The website is temporarily deployed on Heroku.
 
 # Requirements
