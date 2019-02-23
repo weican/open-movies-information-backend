@@ -18,9 +18,13 @@ The following picture is an overview of the infrastructures of this website:
 - [JWT](https://jwt.io/) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. 
 
 # Features
-- Automatic copying data and extracting from TMDb server into the host database by RESTful API
-- Using JSON Web Token(JWT) with Spring Security for the authorized users to update the latest movies information
+- Automatic copying movies data and extracting the latest movies information from TMDb server into our database by RESTful API
+- Using JSON Web Token(JWT) with Spring Security for the authorized users to renew our database
 - Providing movies information and user details by RESTful API
+
+# Demo
+![image](https://drive.google.com/uc?export=view&id=1HHSvsPx8FUkx1cQ0Yg3QPGaB0Bl3QwGa)
+
 
 # Declaration and Licence
 This project is maintained by Wales Chang and under MIT license, and the repository is hosted for the demonstration purpose. 
