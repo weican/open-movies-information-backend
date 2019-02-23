@@ -3,6 +3,10 @@ The Project Open Movies Information is a self-motivated project as a demonstrati
 This A-to-Z project is developed independently from scratch as well as it will be constantly improving.
 The RESTful API service is temporarily deployed on Heroku.
 
+# The Infrastructures
+The following picture is an overview of the infrastructures of this website:
+![image](https://drive.google.com/uc?export=view&id=1ie_PZqP0vouDnGQKp2j2bIw0kAAoGXgW)
+
 # Requirements
 ### Java
 - [Spring Boot](http://spring.io/projects/spring-boot) makes it easy to create stand-alone, production-grade Spring based Applications.
