@@ -7,7 +7,7 @@ You also can visit GitHub to view Open Movies Information front-end project http
 
 # The Infrastructures
 The following picture is an overview of the infrastructures of this website:
-![image](https://drive.google.com/uc?export=view&id=1ie_PZqP0vouDnGQKp2j2bIw0kAAoGXgW)
+![image](https://drive.google.com/uc?export=view&id=19qUgN2UUahzy77IrMhpZnbTCawIq7F2H)
 
 # Requirements
 ### Java
