@@ -1,7 +1,7 @@
 # Summary
 The Project Open Movies Information is a self-motivated project as a demonstration of my back-end skills.
-This A-to-Z project is developed independently from scratch as well as it will be constantly improving. 
-The website is temporarily deployed on Heroku.
+This A-to-Z project is developed independently from scratch as well as it will be constantly improving.
+The RESTful API service is temporarily deployed on Heroku.
 
 # Requirements
 ### Java
@@ -12,10 +12,9 @@ The website is temporarily deployed on Heroku.
 - [JWT](https://jwt.io/) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. 
 
 # Features
-- Displaying movies information and interactive visualization on charts
 - Automatic copying data and extracting from TMDb server into the host database by RESTful API
 - Using JSON Web Token(JWT) with Spring Security for the authorized users to update the latest movies information
-- Providing RESTful API for endpoints 
+- Providing movies information and user details by RESTful API
 
 # Declaration and Licence
 This project is maintained by Wales Chang and under MIT license, and the repository is hosted for the demonstration purpose. 
