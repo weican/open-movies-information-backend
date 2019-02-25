@@ -33,8 +33,8 @@ GET https://open-movies-backend.herokuapp.com/public/getGenre
 
 
 # Demo
-- Please view the interactive charts on a computer for optimal experience.
-👉 https://weican.github.io/open-movies-information/
+- **Please view the interactive charts on a computer for optimal experience.**
+👉 https://weican.github.io/open-movies-information/  
 ![image](https://drive.google.com/uc?export=view&id=1HHSvsPx8FUkx1cQ0Yg3QPGaB0Bl3QwGa)
 
 
