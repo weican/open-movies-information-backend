@@ -21,7 +21,8 @@ The following picture is an overview of the infrastructures of this website:
 - Automatic copying movies data and extracting the latest movies information from TMDb server into our database by RESTful API
 - Using JSON Web Token(JWT) with Spring Security for the authorized users to renew our database
 - Providing movies information and user details by RESTful API
-### APIs Overview
+
+# APIs Overview
 List of movies:
 ```
 GET https://open-movies-backend.herokuapp.com/public/getAll
@@ -30,7 +31,6 @@ List of genres:
 ```
 GET https://open-movies-backend.herokuapp.com/public/getGenre
 ```
-
 
 # Demo
 - **Please view the interactive charts on a computer for optimal experience.**
